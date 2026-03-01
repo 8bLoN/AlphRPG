@@ -37,6 +37,7 @@ var _mouse_world_pos: Vector3 = Vector3.ZERO
 var _hovered_target: BaseCharacter = null
 var _inventory_open: bool = false
 var _character_open: bool = false
+var _auto_attack_cooldown: float = 0.0
 
 # ─── Godot Lifecycle ─────────────────────────────────────────────────────────
 
@@ -130,8 +131,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		GameManager.toggle_pause()
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	_update_hovered_target()
+	_auto_attack_cooldown = maxf(0.0, _auto_attack_cooldown - delta)
 
 # ─── 3D Mouse World Position ──────────────────────────────────────────────────
 
@@ -150,11 +152,14 @@ func _get_mouse_world_pos_3d() -> Vector3:
 # ─── Auto Attack ─────────────────────────────────────────────────────────────
 
 func _initiate_auto_attack(target: BaseCharacter) -> void:
+	if _auto_attack_cooldown > 0.0:
+		return
 	_attack_target_pos = target.global_position
 	var attack_range := 80.0 * WORLD_SCALE
 	if global_position.distance_to(target.global_position) > attack_range:
 		move_to(target.global_position)
 		return
+	_auto_attack_cooldown = 0.9
 	state_machine.transition_to("attack")
 	_perform_auto_attack(target)
 
