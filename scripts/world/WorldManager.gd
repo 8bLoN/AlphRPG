@@ -41,16 +41,25 @@ func _ready() -> void:
 	GameManager.set_phase(GameManager.GamePhase.PLAYING)
 	EventBus.zone_transition_completed.emit(zone_id)
 
+	# Bake navigation mesh at runtime so pathfinding works without editor pre-bake.
+	var nav_region: NavigationRegion3D = get_node_or_null("NavigationRegion3D") as NavigationRegion3D
+	if nav_region:
+		nav_region.bake_navigation_mesh()
+
 	# Position player at spawn point.
 	_spawn_player()
 
-	# Start enemy spawners.
+	# Start enemy spawners after a short delay so the scene tree is fully ready.
+	call_deferred("_start_spawners")
+
+	print("WorldManager: Entered zone '%s' (recommended level %d)." % [zone_display_name, recommended_level])
+
+
+func _start_spawners() -> void:
 	if enemy_spawners:
 		for spawner in enemy_spawners.get_children():
 			if spawner.has_method("start_spawning"):
 				spawner.start_spawning(recommended_level)
-
-	print("WorldManager: Entered zone '%s' (recommended level %d)." % [zone_display_name, recommended_level])
 
 
 func _spawn_player() -> void:
