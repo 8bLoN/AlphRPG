@@ -26,8 +26,8 @@ extends Node3D
 ## Seconds between respawn attempts (0 = no respawn).
 @export var respawn_time: float = 30.0
 
-## Radius around this node where enemies can appear.
-@export var spawn_radius: float = 64.0
+## Radius around this node where enemies can appear (3D world units).
+@export var spawn_radius: float = 4.0
 
 # ─── State ────────────────────────────────────────────────────────────────────
 

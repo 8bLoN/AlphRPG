@@ -370,8 +370,9 @@ func _compute_base(stat_name: String) -> float:
 			return 1.0 + dexterity * 0.005
 
 		"movement_speed":
-			# Pixels per second.
-			return 200.0 + dexterity * 0.5
+			# World units per second (multiply by WORLD_SCALE=0.1 in MoveState).
+			# Pure DEX scaling so enemies can be set independently via flat modifiers.
+			return dexterity * 5.0
 
 		"hp_regen":
 			# HP per second. Minor but noticeable out of combat.
