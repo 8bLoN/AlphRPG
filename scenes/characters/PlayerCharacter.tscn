@@ -119,5 +119,6 @@ position = Vector3(0, 0.8, 0)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.588, -0.809, 0, 0.809, 0.588, 0, 22, 16)
+transform = Transform3D(1, 0, 0, 0, 0.588, 0.809, 0, -0.809, 0.588, 0, 22, 16)
 fov = 55.0
+current = true

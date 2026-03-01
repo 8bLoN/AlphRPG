@@ -22,11 +22,9 @@ sky_material = SubResource("ProceduralSkyMaterial_1")
 background_mode = 1
 background_color = Color(0.06, 0.05, 0.1, 1)
 ambient_light_source = 2
-ambient_light_color = Color(0.45, 0.40, 0.55, 1)
-ambient_light_energy = 1.5
-fog_enabled = true
-fog_light_color = Color(0.08, 0.06, 0.1, 1)
-fog_density = 0.004
+ambient_light_color = Color(0.7, 0.65, 0.8, 1)
+ambient_light_energy = 2.5
+fog_enabled = false
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
 size = Vector2(300, 300)
@@ -81,9 +79,9 @@ environment = SubResource("Environment_1")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866, -0.354, 0.354, 0, 0.707, 0.707, -0.5, -0.612, 0.612, 0, 40, 0)
-light_color = Color(0.9, 0.85, 0.75, 1)
-light_energy = 1.0
-shadow_enabled = true
+light_color = Color(1.0, 0.95, 0.85, 1)
+light_energy = 2.0
+shadow_enabled = false
 
 [node name="FillLight" type="OmniLight3D" parent="."]
 position = Vector3(0, 20, 0)
