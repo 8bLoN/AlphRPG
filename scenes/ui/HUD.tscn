@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://hud"]
+[gd_scene load_steps=10 format=3 uid="uid://hud"]
 
 [ext_resource type="Script" path="res://scripts/ui/HealthManaBar.gd" id="1_hmbar"]
 [ext_resource type="Script" path="res://scripts/ui/SkillBar.gd" id="2_skillbar"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://scripts/ui/FloatingTextManager.gd" id="5_floattext"]
 [ext_resource type="Script" path="res://scripts/ui/TooltipManager.gd" id="6_tooltip"]
 [ext_resource type="Script" path="res://scripts/ui/VendorUI.gd" id="7_vendor"]
+[ext_resource type="Script" path="res://scripts/ui/SkillTreeUI.gd" id="8_skilltree"]
+[ext_resource type="Script" path="res://scripts/ui/EquipmentUI.gd" id="9_equipui"]
 
 [node name="HUD" type="CanvasLayer"]
 
@@ -519,6 +521,30 @@ offset_top = -34.0
 offset_right = 44.0
 offset_bottom = -8.0
 text = "Close"
+
+[node name="SkillTreeUI" type="Control" parent="."]
+script = ExtResource("8_skilltree")
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -250.0
+offset_right = 360.0
+offset_bottom = 250.0
+visible = false
+
+[node name="EquipmentUI" type="Control" parent="."]
+script = ExtResource("9_equipui")
+anchor_left = 0.0
+anchor_top = 0.5
+anchor_right = 0.0
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -250.0
+offset_right = 296.0
+offset_bottom = 250.0
+visible = false
 
 [node name="FloatingTextManager" type="Node2D" parent="."]
 script = ExtResource("5_floattext")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://main_scene"]
+[gd_scene load_steps=64 format=3 uid="uid://main_scene"]
 
 [ext_resource type="Script" path="res://scripts/world/WorldManager.gd" id="1_wm"]
 [ext_resource type="Script" path="res://scripts/systems/LootSystem.gd" id="2_loot"]
@@ -131,6 +131,18 @@ size = Vector3(0.25, 1.6, 25.5)
 [sub_resource type="StandardMaterial3D" id="Mat_fence"]
 albedo_color = Color(0.32, 0.22, 0.12, 1)
 roughness = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bldg_col"]
+size = Vector3(7, 4, 7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fence_s"]
+size = Vector3(9.5, 1.6, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fence_l"]
+size = Vector3(28.5, 1.6, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fence_e"]
+size = Vector3(0.25, 1.6, 25.5)
 
 [node name="WorldManager" type="Node"]
 script = ExtResource("1_wm")
@@ -335,6 +347,14 @@ font_size = 48
 billboard = 0
 double_sided = true
 
+[node name="WallCol" type="StaticBody3D" parent="Town/ArmorShop"]
+position = Vector3(0, 2, 0)
+collision_layer = 1
+collision_mask = 0
+
+[node name="ColShape" type="CollisionShape3D" parent="Town/ArmorShop/WallCol"]
+shape = SubResource("BoxShape3D_bldg_col")
+
 [node name="PotionShop" type="Node3D" parent="Town"]
 position = Vector3(9, 0, 10)
 
@@ -360,6 +380,14 @@ text = "POTIONS"
 font_size = 48
 billboard = 0
 double_sided = true
+
+[node name="WallCol" type="StaticBody3D" parent="Town/PotionShop"]
+position = Vector3(0, 2, 0)
+collision_layer = 1
+collision_mask = 0
+
+[node name="ColShape" type="CollisionShape3D" parent="Town/PotionShop/WallCol"]
+shape = SubResource("BoxShape3D_bldg_col")
 
 [node name="Gate" type="Node3D" parent="Town"]
 position = Vector3(0, 0, -9)
@@ -393,25 +421,65 @@ mesh = SubResource("BoxMesh_fence_short")
 material_override = SubResource("Mat_fence")
 position = Vector3(-9.25, 0.8, -9)
 
+[node name="NorthLeftCol" type="StaticBody3D" parent="Town/Fence"]
+position = Vector3(-9.25, 0.8, -9)
+collision_layer = 1
+collision_mask = 0
+
+[node name="ColShape" type="CollisionShape3D" parent="Town/Fence/NorthLeftCol"]
+shape = SubResource("BoxShape3D_fence_s")
+
 [node name="NorthRight" type="MeshInstance3D" parent="Town/Fence"]
 mesh = SubResource("BoxMesh_fence_short")
 material_override = SubResource("Mat_fence")
 position = Vector3(9.25, 0.8, -9)
+
+[node name="NorthRightCol" type="StaticBody3D" parent="Town/Fence"]
+position = Vector3(9.25, 0.8, -9)
+collision_layer = 1
+collision_mask = 0
+
+[node name="ColShape" type="CollisionShape3D" parent="Town/Fence/NorthRightCol"]
+shape = SubResource("BoxShape3D_fence_s")
 
 [node name="South" type="MeshInstance3D" parent="Town/Fence"]
 mesh = SubResource("BoxMesh_fence_long")
 material_override = SubResource("Mat_fence")
 position = Vector3(0, 0.8, 16)
 
+[node name="SouthCol" type="StaticBody3D" parent="Town/Fence"]
+position = Vector3(0, 0.8, 16)
+collision_layer = 1
+collision_mask = 0
+
+[node name="ColShape" type="CollisionShape3D" parent="Town/Fence/SouthCol"]
+shape = SubResource("BoxShape3D_fence_l")
+
 [node name="East" type="MeshInstance3D" parent="Town/Fence"]
 mesh = SubResource("BoxMesh_fence_side")
 material_override = SubResource("Mat_fence")
 position = Vector3(14, 0.8, 3.5)
 
+[node name="EastCol" type="StaticBody3D" parent="Town/Fence"]
+position = Vector3(14, 0.8, 3.5)
+collision_layer = 1
+collision_mask = 0
+
+[node name="ColShape" type="CollisionShape3D" parent="Town/Fence/EastCol"]
+shape = SubResource("BoxShape3D_fence_e")
+
 [node name="West" type="MeshInstance3D" parent="Town/Fence"]
 mesh = SubResource("BoxMesh_fence_side")
 material_override = SubResource("Mat_fence")
 position = Vector3(-14, 0.8, 3.5)
+
+[node name="WestCol" type="StaticBody3D" parent="Town/Fence"]
+position = Vector3(-14, 0.8, 3.5)
+collision_layer = 1
+collision_mask = 0
+
+[node name="ColShape" type="CollisionShape3D" parent="Town/Fence/WestCol"]
+shape = SubResource("BoxShape3D_fence_e")
 
 [node name="ArmorVendor" type="Area3D" parent="Town"]
 script = ExtResource("9_vendor")
@@ -483,7 +551,7 @@ position = Vector3(0, 0, 0)
 
 [node name="SkeletonSpawner1" type="Node3D" parent="EnemySpawners"]
 script = ExtResource("7_spawner")
-position = Vector3(22, 0, -40)
+position = Vector3(22, 0, -90)
 enemy_scene = ExtResource("4_enemy")
 enemy_data = ExtResource("8_skeleton")
 max_count = 2
@@ -492,7 +560,7 @@ respawn_time = 20.0
 
 [node name="SkeletonSpawner2" type="Node3D" parent="EnemySpawners"]
 script = ExtResource("7_spawner")
-position = Vector3(-18, 0, -55)
+position = Vector3(-18, 0, -110)
 enemy_scene = ExtResource("4_enemy")
 enemy_data = ExtResource("8_skeleton")
 max_count = 2

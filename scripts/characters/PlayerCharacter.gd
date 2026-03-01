@@ -37,6 +37,8 @@ var _mouse_world_pos: Vector3 = Vector3.ZERO
 var _hovered_target: BaseCharacter = null
 var _inventory_open: bool = false
 var _character_open: bool = false
+var _skill_tree_open: bool = false
+var _equipment_open: bool = false
 var _auto_attack_cooldown: float = 0.0
 
 # ─── Godot Lifecycle ─────────────────────────────────────────────────────────
@@ -84,21 +86,25 @@ func _initialize_visual_layers() -> void:
 
 
 func _setup_default_skills() -> void:
-	var skill_ids := ["mage_fireball", "warrior_bash", "rogue_backstab"]
-	var slot := 0
-	for sid in skill_ids:
-		var path := "res://data/skills/%s.tres" % sid
-		if not ResourceLoader.exists(path):
-			slot += 1
-			continue
-		var sd: SkillData = load(path) as SkillData
-		if sd == null:
-			slot += 1
-			continue
-		skill_tree.register_skill(sd)
-		skill_tree.learn_or_upgrade(sid)
-		skill_tree.assign_to_slot(slot, sid)
-		slot += 1
+	# Register every skill .tres found in the data folder so the tree UI shows all skills.
+	var dir := DirAccess.open("res://data/skills/")
+	if dir:
+		dir.list_dir_begin()
+		var fname := dir.get_next()
+		while fname.length() > 0:
+			if fname.ends_with(".tres") or fname.ends_with(".res"):
+				var res := ResourceLoader.load("res://data/skills/" + fname)
+				if res is SkillData and not (res as SkillData).id.is_empty():
+					skill_tree.register_skill(res)
+			fname = dir.get_next()
+		dir.list_dir_end()
+	# Learn and slot the three starting skills.
+	for entry: Array in [["mage_fireball", 0], ["warrior_bash", 1], ["rogue_backstab", 2]]:
+		var sid: String = entry[0]
+		var slot: int = entry[1]
+		if skill_tree.get_skill_data(sid) != null:
+			skill_tree.learn_or_upgrade(sid)
+			skill_tree.assign_to_slot(slot, sid)
 
 # ─── Input ────────────────────────────────────────────────────────────────────
 
@@ -127,6 +133,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_character"):
 		_character_open = not _character_open
 		EventBus.ui_panel_toggled.emit("character", _character_open)
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_S:
+			_skill_tree_open = not _skill_tree_open
+			EventBus.ui_panel_toggled.emit("skill_tree", _skill_tree_open)
+		elif event.keycode == KEY_E:
+			_equipment_open = not _equipment_open
+			EventBus.ui_panel_toggled.emit("equipment", _equipment_open)
 	if event.is_action_pressed("ui_cancel"):
 		GameManager.toggle_pause()
 
