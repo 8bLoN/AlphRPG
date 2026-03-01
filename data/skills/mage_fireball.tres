@@ -1,0 +1,30 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://mage_fireball"]
+
+[ext_resource type="Script" path="res://resources/data/SkillData.gd" id="1_skilldata"]
+
+[resource]
+script = ExtResource("1_skilldata")
+id = "mage_fireball"
+display_name = "Fireball"
+description = "Launches a blazing fireball dealing {damage} fire damage in a {radius}px radius."
+class_id = "mage"
+skill_type = 0
+script_path = "res://scripts/skills/mage/Fireball.gd"
+resource_type = 0
+base_cost = 20.0
+cost_per_rank = 5.0
+base_cooldown = 3.0
+cooldown_per_rank = -0.2
+cast_time = 0.5
+base_damage = 40.0
+damage_per_rank = 15.0
+damage_type = 1
+skill_multiplier = 1.2
+aoe_radius = 80.0
+max_targets = 0
+affects_allies = false
+tree_position = Vector2i(0, 0)
+prerequisites = []
+required_level = 1
+max_rank = 5
+animation_name = "cast"

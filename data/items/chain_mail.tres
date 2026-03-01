@@ -1,0 +1,22 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://chain_mail"]
+
+[ext_resource type="Script" path="res://resources/data/ItemData.gd" id="1_itemdata"]
+
+[resource]
+script = ExtResource("1_itemdata")
+id = "chain_mail"
+display_name = "Chain Mail"
+base_description = "Interlocked metal rings provide solid protection."
+category = 0
+equip_slot = 2
+rarity = 0
+min_item_level = 3
+max_item_level = 0
+size = Vector2i(2, 3)
+max_stack = 1
+weight = 7.0
+base_stat_bonuses = {"armor": 30.0}
+max_prefixes = 2
+max_suffixes = 2
+prefix_pool = ["prefix_life", "prefix_mana", "prefix_life_pct"]
+suffix_pool = ["suffix_armor", "suffix_fire_res", "suffix_cold_res", "suffix_lightning_res"]

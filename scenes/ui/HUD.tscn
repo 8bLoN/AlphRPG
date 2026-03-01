@@ -1,0 +1,466 @@
+[gd_scene load_steps=7 format=3 uid="uid://hud"]
+
+[ext_resource type="Script" path="res://scripts/ui/HealthManaBar.gd" id="1_hmbar"]
+[ext_resource type="Script" path="res://scripts/ui/SkillBar.gd" id="2_skillbar"]
+[ext_resource type="Script" path="res://scripts/ui/InventoryUI.gd" id="3_invui"]
+[ext_resource type="Script" path="res://scripts/ui/CharacterWindow.gd" id="4_charwin"]
+[ext_resource type="Script" path="res://scripts/ui/FloatingTextManager.gd" id="5_floattext"]
+[ext_resource type="Script" path="res://scripts/ui/TooltipManager.gd" id="6_tooltip"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="HealthManaBar" type="Control" parent="."]
+script = ExtResource("1_hmbar")
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -80.0
+offset_right = 240.0
+offset_bottom = -8.0
+show_mana = true
+
+[node name="HPBar" type="TextureProgressBar" parent="HealthManaBar"]
+anchor_right = 1.0
+offset_right = 0.0
+offset_bottom = 28.0
+fill_mode = 0
+value = 100.0
+
+[node name="HPLabel" type="Label" parent="HealthManaBar"]
+anchor_right = 1.0
+offset_top = 2.0
+offset_right = 0.0
+offset_bottom = 26.0
+text = "HP"
+horizontal_alignment = 1
+
+[node name="ManaBar" type="TextureProgressBar" parent="HealthManaBar"]
+anchor_right = 1.0
+offset_top = 32.0
+offset_right = 0.0
+offset_bottom = 60.0
+fill_mode = 0
+value = 100.0
+
+[node name="ManaLabel" type="Label" parent="HealthManaBar"]
+anchor_right = 1.0
+offset_top = 34.0
+offset_right = 0.0
+offset_bottom = 58.0
+text = "MP"
+horizontal_alignment = 1
+
+[node name="SkillBar" type="HBoxContainer" parent="."]
+script = ExtResource("2_skillbar")
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -144.0
+offset_top = -56.0
+offset_right = 144.0
+offset_bottom = -8.0
+
+[node name="Slot0" type="Panel" parent="SkillBar"]
+custom_minimum_size = Vector2(44, 44)
+
+[node name="Icon" type="TextureRect" parent="SkillBar/Slot0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CooldownOverlay" type="ColorRect" parent="SkillBar/Slot0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.7)
+visible = false
+
+[node name="CooldownLabel" type="Label" parent="SkillBar/Slot0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+visible = false
+
+[node name="KeyLabel" type="Label" parent="SkillBar/Slot0"]
+anchor_right = 1.0
+offset_top = 28.0
+offset_right = 0.0
+offset_bottom = 44.0
+text = "LMB"
+horizontal_alignment = 1
+
+[node name="Slot1" type="Panel" parent="SkillBar"]
+custom_minimum_size = Vector2(44, 44)
+
+[node name="Icon" type="TextureRect" parent="SkillBar/Slot1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CooldownOverlay" type="ColorRect" parent="SkillBar/Slot1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.7)
+visible = false
+
+[node name="CooldownLabel" type="Label" parent="SkillBar/Slot1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+visible = false
+
+[node name="KeyLabel" type="Label" parent="SkillBar/Slot1"]
+anchor_right = 1.0
+offset_top = 28.0
+offset_right = 0.0
+offset_bottom = 44.0
+text = "RMB"
+horizontal_alignment = 1
+
+[node name="Slot2" type="Panel" parent="SkillBar"]
+custom_minimum_size = Vector2(44, 44)
+
+[node name="Icon" type="TextureRect" parent="SkillBar/Slot2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CooldownOverlay" type="ColorRect" parent="SkillBar/Slot2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.7)
+visible = false
+
+[node name="CooldownLabel" type="Label" parent="SkillBar/Slot2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+visible = false
+
+[node name="KeyLabel" type="Label" parent="SkillBar/Slot2"]
+anchor_right = 1.0
+offset_top = 28.0
+offset_right = 0.0
+offset_bottom = 44.0
+text = "1"
+horizontal_alignment = 1
+
+[node name="Slot3" type="Panel" parent="SkillBar"]
+custom_minimum_size = Vector2(44, 44)
+
+[node name="Icon" type="TextureRect" parent="SkillBar/Slot3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CooldownOverlay" type="ColorRect" parent="SkillBar/Slot3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.7)
+visible = false
+
+[node name="CooldownLabel" type="Label" parent="SkillBar/Slot3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+visible = false
+
+[node name="KeyLabel" type="Label" parent="SkillBar/Slot3"]
+anchor_right = 1.0
+offset_top = 28.0
+offset_right = 0.0
+offset_bottom = 44.0
+text = "2"
+horizontal_alignment = 1
+
+[node name="Slot4" type="Panel" parent="SkillBar"]
+custom_minimum_size = Vector2(44, 44)
+
+[node name="Icon" type="TextureRect" parent="SkillBar/Slot4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CooldownOverlay" type="ColorRect" parent="SkillBar/Slot4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.7)
+visible = false
+
+[node name="CooldownLabel" type="Label" parent="SkillBar/Slot4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+visible = false
+
+[node name="KeyLabel" type="Label" parent="SkillBar/Slot4"]
+anchor_right = 1.0
+offset_top = 28.0
+offset_right = 0.0
+offset_bottom = 44.0
+text = "3"
+horizontal_alignment = 1
+
+[node name="Slot5" type="Panel" parent="SkillBar"]
+custom_minimum_size = Vector2(44, 44)
+
+[node name="Icon" type="TextureRect" parent="SkillBar/Slot5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CooldownOverlay" type="ColorRect" parent="SkillBar/Slot5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.7)
+visible = false
+
+[node name="CooldownLabel" type="Label" parent="SkillBar/Slot5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+visible = false
+
+[node name="KeyLabel" type="Label" parent="SkillBar/Slot5"]
+anchor_right = 1.0
+offset_top = 28.0
+offset_right = 0.0
+offset_bottom = 44.0
+text = "4"
+horizontal_alignment = 1
+
+[node name="InventoryUI" type="Control" parent="."]
+script = ExtResource("3_invui")
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -430.0
+offset_top = -200.0
+offset_right = -8.0
+offset_bottom = 200.0
+visible = false
+
+[node name="Background" type="ColorRect" parent="InventoryUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.08, 0.06, 0.06, 0.96)
+z_index = -1
+
+[node name="TitleBar" type="ColorRect" parent="InventoryUI"]
+anchor_right = 1.0
+offset_bottom = 26.0
+color = Color(0.18, 0.08, 0.05, 1.0)
+
+[node name="TitleLabel" type="Label" parent="InventoryUI"]
+anchor_right = 1.0
+offset_top = 2.0
+offset_bottom = 26.0
+text = "INVENTORY  [I]"
+horizontal_alignment = 1
+
+[node name="Grid" type="Control" parent="InventoryUI"]
+offset_top = 28.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="DragPreview" type="Control" parent="InventoryUI"]
+mouse_filter = 2
+z_index = 10
+
+[node name="DragIcon" type="TextureRect" parent="InventoryUI/DragPreview"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CharacterWindow" type="Control" parent="."]
+script = ExtResource("4_charwin")
+anchor_left = 0.0
+anchor_top = 0.5
+anchor_right = 0.0
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -200.0
+offset_right = 280.0
+offset_bottom = 200.0
+visible = false
+
+[node name="Background" type="ColorRect" parent="CharacterWindow"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.06, 0.06, 0.1, 0.96)
+z_index = -1
+
+[node name="TitleBar" type="ColorRect" parent="CharacterWindow"]
+anchor_right = 1.0
+offset_bottom = 26.0
+color = Color(0.08, 0.08, 0.2, 1.0)
+
+[node name="TitleLabel" type="Label" parent="CharacterWindow"]
+anchor_right = 1.0
+offset_top = 2.0
+offset_bottom = 26.0
+text = "CHARACTER  [C]"
+horizontal_alignment = 1
+
+[node name="Header" type="VBoxContainer" parent="CharacterWindow"]
+anchor_right = 1.0
+offset_top = 28.0
+offset_bottom = 88.0
+
+[node name="LevelValue" type="Label" parent="CharacterWindow/Header"]
+text = "Level 1"
+
+[node name="StatPointsLabel" type="Label" parent="CharacterWindow/Header"]
+text = "Stat Points: 0"
+
+[node name="SkillPointsLabel" type="Label" parent="CharacterWindow/Header"]
+text = "Skill Points: 0"
+
+[node name="Stats" type="GridContainer" parent="CharacterWindow"]
+offset_top = 92.0
+offset_right = 270.0
+offset_bottom = 228.0
+columns = 3
+
+[node name="StrLabel" type="Label" parent="CharacterWindow/Stats"]
+text = "Strength"
+
+[node name="StrValue" type="Label" parent="CharacterWindow/Stats"]
+text = "0"
+
+[node name="StrPlusBtn" type="Button" parent="CharacterWindow/Stats"]
+text = "+"
+visible = false
+
+[node name="DexLabel" type="Label" parent="CharacterWindow/Stats"]
+text = "Dexterity"
+
+[node name="DexValue" type="Label" parent="CharacterWindow/Stats"]
+text = "0"
+
+[node name="DexPlusBtn" type="Button" parent="CharacterWindow/Stats"]
+text = "+"
+visible = false
+
+[node name="IntLabel" type="Label" parent="CharacterWindow/Stats"]
+text = "Intelligence"
+
+[node name="IntValue" type="Label" parent="CharacterWindow/Stats"]
+text = "0"
+
+[node name="IntPlusBtn" type="Button" parent="CharacterWindow/Stats"]
+text = "+"
+visible = false
+
+[node name="VitLabel" type="Label" parent="CharacterWindow/Stats"]
+text = "Vitality"
+
+[node name="VitValue" type="Label" parent="CharacterWindow/Stats"]
+text = "0"
+
+[node name="VitPlusBtn" type="Button" parent="CharacterWindow/Stats"]
+text = "+"
+visible = false
+
+[node name="Derived" type="GridContainer" parent="CharacterWindow"]
+offset_top = 238.0
+offset_right = 270.0
+offset_bottom = 400.0
+columns = 2
+
+[node name="HPLbl" type="Label" parent="CharacterWindow/Derived"]
+text = "Max HP"
+
+[node name="MaxHPValue" type="Label" parent="CharacterWindow/Derived"]
+text = "0"
+
+[node name="ManaLbl" type="Label" parent="CharacterWindow/Derived"]
+text = "Max Mana"
+
+[node name="MaxManaValue" type="Label" parent="CharacterWindow/Derived"]
+text = "0"
+
+[node name="DmgLbl" type="Label" parent="CharacterWindow/Derived"]
+text = "Damage"
+
+[node name="DmgValue" type="Label" parent="CharacterWindow/Derived"]
+text = "0"
+
+[node name="ArmorLbl" type="Label" parent="CharacterWindow/Derived"]
+text = "Armor"
+
+[node name="ArmorValue" type="Label" parent="CharacterWindow/Derived"]
+text = "0"
+
+[node name="CritLbl" type="Label" parent="CharacterWindow/Derived"]
+text = "Crit Chance"
+
+[node name="CritValue" type="Label" parent="CharacterWindow/Derived"]
+text = "0%"
+
+[node name="AtkSpdLbl" type="Label" parent="CharacterWindow/Derived"]
+text = "Atk Speed"
+
+[node name="AtkSpdValue" type="Label" parent="CharacterWindow/Derived"]
+text = "0"
+
+[node name="MovSpdLbl" type="Label" parent="CharacterWindow/Derived"]
+text = "Move Speed"
+
+[node name="MovSpdValue" type="Label" parent="CharacterWindow/Derived"]
+text = "0"
+
+[node name="TooltipManager" type="Control" parent="."]
+script = ExtResource("6_tooltip")
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 100
+
+[node name="TooltipPanel" type="Panel" parent="TooltipManager"]
+visible = false
+custom_minimum_size = Vector2(240, 0)
+
+[node name="ItemNameLabel" type="Label" parent="TooltipManager/TooltipPanel"]
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 28.0
+text = "Item Name"
+
+[node name="ItemTypeLabel" type="Label" parent="TooltipManager/TooltipPanel"]
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 30.0
+offset_right = -8.0
+offset_bottom = 46.0
+text = "Type | Slot"
+
+[node name="StatsContainer" type="VBoxContainer" parent="TooltipManager/TooltipPanel"]
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 50.0
+offset_right = -8.0
+offset_bottom = 150.0
+
+[node name="DescriptionLabel" type="Label" parent="TooltipManager/TooltipPanel"]
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 154.0
+offset_right = -8.0
+offset_bottom = 200.0
+autowrap_mode = 3
+text = ""
+visible = false
+
+[node name="FloatingTextManager" type="Node2D" parent="."]
+script = ExtResource("5_floattext")

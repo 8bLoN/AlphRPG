@@ -1,0 +1,17 @@
+# Godot
+.godot/
+*.import
+export.cfg
+export_presets.cfg
+
+# Mono/C# (not used, but just in case)
+.mono/
+data_*/
+
+# Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

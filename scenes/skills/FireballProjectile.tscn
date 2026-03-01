@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://fireball_projectile"]
+
+[ext_resource type="Script" path="res://scripts/projectiles/FireballProjectile.gd" id="1_fireball"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_col"]
+radius = 0.35
+
+[sub_resource type="SphereMesh" id="SphereMesh_visual"]
+radius = 0.35
+height = 0.7
+
+[sub_resource type="StandardMaterial3D" id="Mat_fireball"]
+albedo_color = Color(1.0, 0.35, 0.05, 1)
+emission_enabled = true
+emission = Color(1.0, 0.5, 0.1, 1)
+emission_energy_multiplier = 2.0
+transparency = 0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hit"]
+radius = 0.35
+
+[node name="FireballProjectile" type="CharacterBody3D"]
+script = ExtResource("1_fireball")
+collision_layer = 8
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_col")
+
+[node name="Visual" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_visual")
+material_override = SubResource("Mat_fireball")
+
+[node name="HitArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="HitShape" type="CollisionShape3D" parent="HitArea"]
+shape = SubResource("SphereShape3D_hit")

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://warrior_bash"]
+
+[ext_resource type="Script" path="res://resources/data/SkillData.gd" id="1_skilldata"]
+
+[resource]
+script = ExtResource("1_skilldata")
+id = "warrior_bash"
+display_name = "Bash"
+description = "A powerful melee strike that deals {damage} physical damage."
+class_id = "warrior"
+skill_type = 0
+script_path = ""
+resource_type = 0
+base_cost = 15.0
+cost_per_rank = 3.0
+base_cooldown = 2.0
+cooldown_per_rank = -0.1
+cast_time = 0.0
+base_damage = 25.0
+damage_per_rank = 10.0
+damage_type = 0
+skill_multiplier = 1.0
+aoe_radius = 0.0
+max_targets = 1
+affects_allies = false
+tree_position = Vector2i(0, 0)
+prerequisites = []
+required_level = 1
+max_rank = 5
+animation_name = "attack"

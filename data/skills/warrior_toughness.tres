@@ -1,0 +1,32 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://warrior_toughness"]
+
+[ext_resource type="Script" path="res://resources/data/SkillData.gd" id="1_skilldata"]
+
+[resource]
+script = ExtResource("1_skilldata")
+id = "warrior_toughness"
+display_name = "Toughness"
+description = "Passive: Increases maximum health by 50 per rank."
+class_id = "warrior"
+skill_type = 1
+script_path = ""
+resource_type = 3
+base_cost = 0.0
+cost_per_rank = 0.0
+base_cooldown = 0.0
+cooldown_per_rank = 0.0
+cast_time = 0.0
+base_damage = 0.0
+damage_per_rank = 0.0
+damage_type = 0
+skill_multiplier = 1.0
+aoe_radius = 0.0
+max_targets = 0
+affects_allies = false
+tree_position = Vector2i(1, 0)
+prerequisites = []
+required_level = 1
+max_rank = 5
+passive_modifiers = [{"stat": "max_hp", "value": 50.0, "type": 0}]
+passive_modifiers_per_rank = [{"stat": "max_hp", "value": 50.0, "type": 0}]
+animation_name = "idle"

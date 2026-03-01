@@ -1,0 +1,22 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ring_iron"]
+
+[ext_resource type="Script" path="res://resources/data/ItemData.gd" id="1_itemdata"]
+
+[resource]
+script = ExtResource("1_itemdata")
+id = "ring_iron"
+display_name = "Iron Ring"
+base_description = "A plain iron ring with latent magical potential."
+category = 0
+equip_slot = 7
+rarity = 0
+min_item_level = 1
+max_item_level = 0
+size = Vector2i(1, 1)
+max_stack = 1
+weight = 0.3
+base_stat_bonuses = {}
+max_prefixes = 1
+max_suffixes = 1
+prefix_pool = ["prefix_life", "prefix_mana", "prefix_phys_dmg", "prefix_spell_power"]
+suffix_pool = ["suffix_armor", "suffix_crit_chance", "suffix_fire_res", "suffix_cold_res", "suffix_lightning_res"]

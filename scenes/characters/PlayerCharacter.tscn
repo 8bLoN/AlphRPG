@@ -1,0 +1,123 @@
+[gd_scene load_steps=22 format=3 uid="uid://player_character"]
+
+[ext_resource type="Script" path="res://scripts/characters/PlayerCharacter.gd" id="1_player"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_col"]
+radius = 0.5
+height = 1.6
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_body"]
+radius = 0.28
+height = 1.1
+
+[sub_resource type="StandardMaterial3D" id="Mat_body"]
+albedo_color = Color(0.18, 0.28, 0.62, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_head"]
+radius = 0.22
+height = 0.44
+
+[sub_resource type="StandardMaterial3D" id="Mat_head"]
+albedo_color = Color(0.85, 0.72, 0.58, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_shoulder"]
+radius = 0.14
+height = 0.42
+
+[sub_resource type="StandardMaterial3D" id="Mat_shoulder"]
+albedo_color = Color(0.22, 0.34, 0.72, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_blade"]
+size = Vector3(0.07, 0.9, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="Mat_blade"]
+albedo_color = Color(0.8, 0.82, 0.85, 1)
+metallic = 0.9
+roughness = 0.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_guard"]
+size = Vector3(0.32, 0.07, 0.09)
+
+[sub_resource type="StandardMaterial3D" id="Mat_guard"]
+albedo_color = Color(0.85, 0.72, 0.1, 1)
+metallic = 0.6
+
+[sub_resource type="TorusMesh" id="TorusMesh_ring"]
+inner_radius = 0.42
+outer_radius = 0.55
+
+[sub_resource type="StandardMaterial3D" id="Mat_ring"]
+albedo_color = Color(0.0, 1.0, 0.9, 0.5)
+transparency = 1
+emission_enabled = true
+emission = Color(0.0, 1.0, 0.9, 1)
+emission_energy_multiplier = 0.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hitbox"]
+radius = 0.5
+height = 1.6
+
+[node name="PlayerCharacter" type="CharacterBody3D"]
+script = ExtResource("1_player")
+collision_layer = 4
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_col")
+position = Vector3(0, 0.8, 0)
+
+[node name="VisualRoot" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="VisualRoot"]
+mesh = SubResource("CapsuleMesh_body")
+material_override = SubResource("Mat_body")
+position = Vector3(0, 0.55, 0)
+
+[node name="Head" type="MeshInstance3D" parent="VisualRoot"]
+mesh = SubResource("SphereMesh_head")
+material_override = SubResource("Mat_head")
+position = Vector3(0, 1.25, 0)
+
+[node name="ShoulderL" type="MeshInstance3D" parent="VisualRoot"]
+mesh = SubResource("CapsuleMesh_shoulder")
+material_override = SubResource("Mat_shoulder")
+position = Vector3(-0.45, 0.8, 0)
+
+[node name="ShoulderR" type="MeshInstance3D" parent="VisualRoot"]
+mesh = SubResource("CapsuleMesh_shoulder")
+material_override = SubResource("Mat_shoulder")
+position = Vector3(0.45, 0.8, 0)
+
+[node name="WeaponBlade" type="MeshInstance3D" parent="VisualRoot"]
+mesh = SubResource("BoxMesh_blade")
+material_override = SubResource("Mat_blade")
+position = Vector3(0.6, 0.7, 0)
+
+[node name="WeaponGuard" type="MeshInstance3D" parent="VisualRoot"]
+mesh = SubResource("BoxMesh_guard")
+material_override = SubResource("Mat_guard")
+position = Vector3(0.6, 0.25, 0)
+
+[node name="SelectionRing" type="MeshInstance3D" parent="VisualRoot"]
+mesh = SubResource("TorusMesh_ring")
+material_override = SubResource("Mat_ring")
+position = Vector3(0, 0.02, 0)
+visible = false
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.8
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="HitboxShape" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("CapsuleShape3D_hitbox")
+position = Vector3(0, 0.8, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.588, 0.809, 0, -0.809, 0.588, 0, 22, 16)
+fov = 55.0

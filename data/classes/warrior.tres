@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://warrior_class"]
+
+[ext_resource type="Script" path="res://resources/data/CharacterClassData.gd" id="1_classdata"]
+
+[resource]
+script = ExtResource("1_classdata")
+class_id = "warrior"
+display_name = "Warrior"
+description = "A mighty melee fighter who relies on strength and endurance."
+base_strength = 20
+base_dexterity = 10
+base_intelligence = 5
+base_vitality = 15
+strength_per_level = 3
+dexterity_per_level = 1
+intelligence_per_level = 0
+vitality_per_level = 2
+stat_points_per_level = 5
+skill_points_per_level = 1
+hp_per_vitality = 6.0
+mana_per_intelligence = 2.0
+armor_per_strength = 0.5
+starting_item_ids = ["short_sword", "health_potion_small"]
+available_skills = []

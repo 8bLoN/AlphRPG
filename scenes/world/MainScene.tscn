@@ -1,0 +1,287 @@
+[gd_scene load_steps=42 format=3 uid="uid://main_scene"]
+
+[ext_resource type="Script" path="res://scripts/world/WorldManager.gd" id="1_wm"]
+[ext_resource type="Script" path="res://scripts/systems/LootSystem.gd" id="2_loot"]
+[ext_resource type="PackedScene" path="res://scenes/characters/PlayerCharacter.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/characters/EnemyCharacter.tscn" id="4_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/items/WorldDrop.tscn" id="5_drop"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="6_hud"]
+[ext_resource type="Script" path="res://scripts/world/EnemySpawner.gd" id="7_spawner"]
+[ext_resource type="Resource" path="res://data/enemies/skeleton_basic.tres" id="8_skeleton"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+sky_top_color = Color(0.05, 0.05, 0.12, 1)
+sky_horizon_color = Color(0.18, 0.14, 0.22, 1)
+ground_horizon_color = Color(0.1, 0.1, 0.08, 1)
+ground_bottom_color = Color(0.05, 0.05, 0.04, 1)
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("ProceduralSkyMaterial_1")
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+ambient_light_source = 3
+ambient_light_color = Color(0.15, 0.12, 0.2, 1)
+ambient_light_energy = 0.6
+fog_enabled = true
+fog_light_color = Color(0.08, 0.06, 0.1, 1)
+fog_density = 0.004
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
+size = Vector2(300, 300)
+
+[sub_resource type="StandardMaterial3D" id="Mat_floor"]
+albedo_color = Color(0.1, 0.16, 0.08, 1)
+roughness = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(300, 0.2, 300)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_1"]
+geometry_parsed_geometry_type = 0
+agent_radius = 0.5
+agent_max_climb = 0.5
+region_min_size = 4.0
+cell_size = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_trunk"]
+top_radius = 0.18
+bottom_radius = 0.25
+height = 2.4
+
+[sub_resource type="StandardMaterial3D" id="Mat_trunk"]
+albedo_color = Color(0.3, 0.2, 0.1, 1)
+roughness = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_foliage"]
+radius = 1.5
+height = 3.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_foliage"]
+albedo_color = Color(0.06, 0.2, 0.06, 1)
+roughness = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_rock"]
+radius = 0.7
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_rock"]
+albedo_color = Color(0.3, 0.28, 0.25, 1)
+roughness = 0.95
+
+[node name="WorldManager" type="Node"]
+script = ExtResource("1_wm")
+zone_id = "zone_01"
+zone_display_name = "The Dark Forest"
+recommended_level = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, -0.354, 0.354, 0, 0.707, 0.707, -0.5, -0.612, 0.612, 0, 40, 0)
+light_color = Color(0.9, 0.85, 0.75, 1)
+light_energy = 1.0
+shadow_enabled = true
+
+[node name="FillLight" type="OmniLight3D" parent="."]
+position = Vector3(0, 20, 0)
+light_color = Color(0.3, 0.25, 0.45, 1)
+light_energy = 0.4
+omni_range = 80.0
+
+[node name="Floor" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="FloorMesh" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("PlaneMesh_floor")
+material_override = SubResource("Mat_floor")
+
+[node name="FloorCollision" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_floor")
+position = Vector3(0, -0.1, 0)
+
+[node name="Decorations" type="Node3D" parent="."]
+
+[node name="Tree1" type="Node3D" parent="Decorations"]
+position = Vector3(18, 0, 12)
+
+[node name="Trunk" type="MeshInstance3D" parent="Decorations/Tree1"]
+mesh = SubResource("CylinderMesh_trunk")
+material_override = SubResource("Mat_trunk")
+position = Vector3(0, 1.2, 0)
+
+[node name="Foliage" type="MeshInstance3D" parent="Decorations/Tree1"]
+mesh = SubResource("SphereMesh_foliage")
+material_override = SubResource("Mat_foliage")
+position = Vector3(0, 3.5, 0)
+
+[node name="Tree2" type="Node3D" parent="Decorations"]
+position = Vector3(-22, 0, 8)
+
+[node name="Trunk" type="MeshInstance3D" parent="Decorations/Tree2"]
+mesh = SubResource("CylinderMesh_trunk")
+material_override = SubResource("Mat_trunk")
+position = Vector3(0, 1.2, 0)
+
+[node name="Foliage" type="MeshInstance3D" parent="Decorations/Tree2"]
+mesh = SubResource("SphereMesh_foliage")
+material_override = SubResource("Mat_foliage")
+position = Vector3(0, 3.5, 0)
+
+[node name="Tree3" type="Node3D" parent="Decorations"]
+position = Vector3(30, 0, -18)
+
+[node name="Trunk" type="MeshInstance3D" parent="Decorations/Tree3"]
+mesh = SubResource("CylinderMesh_trunk")
+material_override = SubResource("Mat_trunk")
+position = Vector3(0, 1.2, 0)
+
+[node name="Foliage" type="MeshInstance3D" parent="Decorations/Tree3"]
+mesh = SubResource("SphereMesh_foliage")
+material_override = SubResource("Mat_foliage")
+position = Vector3(0, 3.5, 0)
+
+[node name="Tree4" type="Node3D" parent="Decorations"]
+position = Vector3(-35, 0, -22)
+
+[node name="Trunk" type="MeshInstance3D" parent="Decorations/Tree4"]
+mesh = SubResource("CylinderMesh_trunk")
+material_override = SubResource("Mat_trunk")
+position = Vector3(0, 1.2, 0)
+
+[node name="Foliage" type="MeshInstance3D" parent="Decorations/Tree4"]
+mesh = SubResource("SphereMesh_foliage")
+material_override = SubResource("Mat_foliage")
+position = Vector3(0, 3.5, 0)
+
+[node name="Tree5" type="Node3D" parent="Decorations"]
+position = Vector3(8, 0, 35)
+
+[node name="Trunk" type="MeshInstance3D" parent="Decorations/Tree5"]
+mesh = SubResource("CylinderMesh_trunk")
+material_override = SubResource("Mat_trunk")
+position = Vector3(0, 1.2, 0)
+
+[node name="Foliage" type="MeshInstance3D" parent="Decorations/Tree5"]
+mesh = SubResource("SphereMesh_foliage")
+material_override = SubResource("Mat_foliage")
+position = Vector3(0, 3.5, 0)
+
+[node name="Tree6" type="Node3D" parent="Decorations"]
+position = Vector3(-12, 0, -40)
+
+[node name="Trunk" type="MeshInstance3D" parent="Decorations/Tree6"]
+mesh = SubResource("CylinderMesh_trunk")
+material_override = SubResource("Mat_trunk")
+position = Vector3(0, 1.2, 0)
+
+[node name="Foliage" type="MeshInstance3D" parent="Decorations/Tree6"]
+mesh = SubResource("SphereMesh_foliage")
+material_override = SubResource("Mat_foliage")
+position = Vector3(0, 3.5, 0)
+
+[node name="Tree7" type="Node3D" parent="Decorations"]
+position = Vector3(42, 0, 20)
+
+[node name="Trunk" type="MeshInstance3D" parent="Decorations/Tree7"]
+mesh = SubResource("CylinderMesh_trunk")
+material_override = SubResource("Mat_trunk")
+position = Vector3(0, 1.2, 0)
+
+[node name="Foliage" type="MeshInstance3D" parent="Decorations/Tree7"]
+mesh = SubResource("SphereMesh_foliage")
+material_override = SubResource("Mat_foliage")
+position = Vector3(0, 3.5, 0)
+
+[node name="Tree8" type="Node3D" parent="Decorations"]
+position = Vector3(-28, 0, 30)
+
+[node name="Trunk" type="MeshInstance3D" parent="Decorations/Tree8"]
+mesh = SubResource("CylinderMesh_trunk")
+material_override = SubResource("Mat_trunk")
+position = Vector3(0, 1.2, 0)
+
+[node name="Foliage" type="MeshInstance3D" parent="Decorations/Tree8"]
+mesh = SubResource("SphereMesh_foliage")
+material_override = SubResource("Mat_foliage")
+position = Vector3(0, 3.5, 0)
+
+[node name="Rock1" type="MeshInstance3D" parent="Decorations"]
+mesh = SubResource("SphereMesh_rock")
+material_override = SubResource("Mat_rock")
+position = Vector3(12, 0.3, -8)
+scale = Vector3(1.0, 0.65, 1.2)
+
+[node name="Rock2" type="MeshInstance3D" parent="Decorations"]
+mesh = SubResource("SphereMesh_rock")
+material_override = SubResource("Mat_rock")
+position = Vector3(-16, 0.3, 14)
+scale = Vector3(1.3, 0.6, 0.9)
+
+[node name="Rock3" type="MeshInstance3D" parent="Decorations"]
+mesh = SubResource("SphereMesh_rock")
+material_override = SubResource("Mat_rock")
+position = Vector3(25, 0.3, -5)
+scale = Vector3(0.8, 0.5, 1.1)
+
+[node name="Rock4" type="MeshInstance3D" parent="Decorations"]
+mesh = SubResource("SphereMesh_rock")
+material_override = SubResource("Mat_rock")
+position = Vector3(-8, 0.3, 28)
+scale = Vector3(1.1, 0.7, 0.85)
+
+[node name="Rock5" type="MeshInstance3D" parent="Decorations"]
+mesh = SubResource("SphereMesh_rock")
+material_override = SubResource("Mat_rock")
+position = Vector3(38, 0.3, -28)
+scale = Vector3(1.2, 0.6, 1.0)
+
+[node name="Rock6" type="MeshInstance3D" parent="Decorations"]
+mesh = SubResource("SphereMesh_rock")
+material_override = SubResource("Mat_rock")
+position = Vector3(-32, 0.3, -12)
+scale = Vector3(0.9, 0.55, 1.3)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_1")
+enabled = true
+
+[node name="Characters" type="Node3D" parent="."]
+
+[node name="PlayerCharacter" parent="Characters" instance=ExtResource("3_player")]
+position = Vector3(0, 0, 0)
+
+[node name="Enemies" type="Node3D" parent="Characters"]
+
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+position = Vector3(0, 0, 0)
+
+[node name="EnemySpawners" type="Node" parent="."]
+
+[node name="SkeletonSpawner1" type="Node3D" parent="EnemySpawners"]
+script = ExtResource("7_spawner")
+position = Vector3(22, 0, 8)
+enemy_scene = ExtResource("4_enemy")
+enemy_data = ExtResource("8_skeleton")
+max_count = 4
+spawn_radius = 10.0
+respawn_time = 12.0
+
+[node name="SkeletonSpawner2" type="Node3D" parent="EnemySpawners"]
+script = ExtResource("7_spawner")
+position = Vector3(-20, 0, -15)
+enemy_scene = ExtResource("4_enemy")
+enemy_data = ExtResource("8_skeleton")
+max_count = 3
+spawn_radius = 8.0
+respawn_time = 12.0
+
+[node name="LootSystem" type="Node" parent="."]
+script = ExtResource("2_loot")
+world_drop_scene = ExtResource("5_drop")
+pickup_magnet_radius = 0.0
+
+[node name="HUD" parent="." instance=ExtResource("6_hud")]

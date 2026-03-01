@@ -1,0 +1,30 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://rogue_backstab"]
+
+[ext_resource type="Script" path="res://resources/data/SkillData.gd" id="1_skilldata"]
+
+[resource]
+script = ExtResource("1_skilldata")
+id = "rogue_backstab"
+display_name = "Backstab"
+description = "A precise strike dealing {damage} physical damage with high critical chance."
+class_id = "rogue"
+skill_type = 0
+script_path = ""
+resource_type = 0
+base_cost = 10.0
+cost_per_rank = 2.0
+base_cooldown = 1.5
+cooldown_per_rank = -0.1
+cast_time = 0.0
+base_damage = 20.0
+damage_per_rank = 8.0
+damage_type = 0
+skill_multiplier = 1.5
+aoe_radius = 0.0
+max_targets = 1
+affects_allies = false
+tree_position = Vector2i(0, 0)
+prerequisites = []
+required_level = 1
+max_rank = 5
+animation_name = "attack"

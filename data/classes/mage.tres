@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://mage_class"]
+
+[ext_resource type="Script" path="res://resources/data/CharacterClassData.gd" id="1_classdata"]
+
+[resource]
+script = ExtResource("1_classdata")
+class_id = "mage"
+display_name = "Mage"
+description = "A powerful spellcaster who harnesses elemental forces."
+base_strength = 5
+base_dexterity = 8
+base_intelligence = 25
+base_vitality = 8
+strength_per_level = 0
+dexterity_per_level = 1
+intelligence_per_level = 3
+vitality_per_level = 1
+stat_points_per_level = 5
+skill_points_per_level = 1
+hp_per_vitality = 4.0
+mana_per_intelligence = 6.0
+armor_per_strength = 0.2
+starting_item_ids = ["mana_potion_small", "health_potion_small"]
+available_skills = []

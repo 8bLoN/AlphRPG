@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://rogue_class"]
+
+[ext_resource type="Script" path="res://resources/data/CharacterClassData.gd" id="1_classdata"]
+
+[resource]
+script = ExtResource("1_classdata")
+class_id = "rogue"
+display_name = "Rogue"
+description = "A swift and cunning fighter who strikes from the shadows."
+base_strength = 10
+base_dexterity = 20
+base_intelligence = 10
+base_vitality = 10
+strength_per_level = 1
+dexterity_per_level = 3
+intelligence_per_level = 1
+vitality_per_level = 1
+stat_points_per_level = 5
+skill_points_per_level = 1
+hp_per_vitality = 5.0
+mana_per_intelligence = 3.0
+armor_per_strength = 0.3
+starting_item_ids = ["short_sword", "health_potion_small"]
+available_skills = []

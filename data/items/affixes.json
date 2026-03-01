@@ -1,0 +1,152 @@
+[
+  {
+    "id": "prefix_life",
+    "category": "prefix",
+    "stat": "max_hp",
+    "min_value": 20,
+    "max_value": 80,
+    "modifier_type": 0,
+    "min_item_level": 1,
+    "label_template": "+{value} Maximum Life"
+  },
+  {
+    "id": "prefix_mana",
+    "category": "prefix",
+    "stat": "max_mana",
+    "min_value": 10,
+    "max_value": 40,
+    "modifier_type": 0,
+    "min_item_level": 1,
+    "label_template": "+{value} Maximum Mana"
+  },
+  {
+    "id": "prefix_fire_dmg",
+    "category": "prefix",
+    "stat": "fire_damage_bonus",
+    "min_value": 5,
+    "max_value": 25,
+    "modifier_type": 0,
+    "min_item_level": 5,
+    "label_template": "+{value} Fire Damage"
+  },
+  {
+    "id": "prefix_spell_power",
+    "category": "prefix",
+    "stat": "spell_damage_bonus",
+    "min_value": 8,
+    "max_value": 30,
+    "modifier_type": 0,
+    "min_item_level": 8,
+    "label_template": "+{value} Spell Power"
+  },
+  {
+    "id": "prefix_phys_dmg",
+    "category": "prefix",
+    "stat": "physical_damage_bonus",
+    "min_value": 5,
+    "max_value": 20,
+    "modifier_type": 0,
+    "min_item_level": 1,
+    "label_template": "+{value} Physical Damage"
+  },
+  {
+    "id": "suffix_armor",
+    "category": "suffix",
+    "stat": "armor",
+    "min_value": 10,
+    "max_value": 50,
+    "modifier_type": 0,
+    "min_item_level": 1,
+    "label_template": "+{value} Armor"
+  },
+  {
+    "id": "suffix_crit_chance",
+    "category": "suffix",
+    "stat": "crit_chance",
+    "min_value": 2,
+    "max_value": 8,
+    "modifier_type": 0,
+    "min_item_level": 5,
+    "label_template": "+{value}% Critical Strike Chance"
+  },
+  {
+    "id": "suffix_crit_mult",
+    "category": "suffix",
+    "stat": "crit_multiplier",
+    "min_value": 15,
+    "max_value": 50,
+    "modifier_type": 0,
+    "min_item_level": 10,
+    "label_template": "+{value}% Critical Strike Damage"
+  },
+  {
+    "id": "suffix_fire_res",
+    "category": "suffix",
+    "stat": "fire_resistance",
+    "min_value": 10,
+    "max_value": 30,
+    "modifier_type": 0,
+    "min_item_level": 1,
+    "label_template": "+{value}% Fire Resistance"
+  },
+  {
+    "id": "suffix_cold_res",
+    "category": "suffix",
+    "stat": "cold_resistance",
+    "min_value": 10,
+    "max_value": 30,
+    "modifier_type": 0,
+    "min_item_level": 1,
+    "label_template": "+{value}% Cold Resistance"
+  },
+  {
+    "id": "suffix_lightning_res",
+    "category": "suffix",
+    "stat": "lightning_resistance",
+    "min_value": 10,
+    "max_value": 30,
+    "modifier_type": 0,
+    "min_item_level": 1,
+    "label_template": "+{value}% Lightning Resistance"
+  },
+  {
+    "id": "suffix_life_steal",
+    "category": "suffix",
+    "stat": "life_steal",
+    "min_value": 1,
+    "max_value": 5,
+    "modifier_type": 0,
+    "min_item_level": 15,
+    "label_template": "+{value}% Life Stolen per Hit"
+  },
+  {
+    "id": "suffix_move_speed",
+    "category": "suffix",
+    "stat": "movement_speed",
+    "min_value": 5,
+    "max_value": 20,
+    "modifier_type": 0,
+    "min_item_level": 1,
+    "label_template": "+{value} Movement Speed"
+  },
+  {
+    "id": "prefix_life_pct",
+    "category": "prefix",
+    "stat": "max_hp",
+    "min_value": 10,
+    "max_value": 30,
+    "modifier_type": 1,
+    "min_item_level": 20,
+    "label_template": "+{value}% Maximum Life"
+  },
+  {
+    "id": "suffix_attack_speed",
+    "category": "suffix",
+    "stat": "attack_speed",
+    "min_value": 0.1,
+    "max_value": 0.3,
+    "modifier_type": 0,
+    "min_item_level": 10,
+    "label_template": "+{value} Attack Speed"
+  }
+]

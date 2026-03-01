@@ -1,0 +1,41 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://skeleton_basic"]
+
+[ext_resource type="Script" path="res://resources/data/EnemyData.gd" id="1_enemydata"]
+
+[resource]
+script = ExtResource("1_enemydata")
+id = "skeleton_basic"
+display_name = "Skeleton"
+description = "A reanimated skeleton warrior."
+archetype = 0
+base_hp = 80.0
+hp_per_level = 15.0
+base_damage_min = 6.0
+base_damage_max = 12.0
+damage_per_level = 2.0
+base_armor = 4.0
+armor_per_level = 0.8
+movement_speed = 130.0
+attack_speed = 1.0
+base_resistances = {
+"fire_resistance": 0.0,
+"cold_resistance": 0.0,
+"lightning_resistance": 10.0,
+"poison_resistance": 0.0
+}
+xp_reward = 40
+xp_per_level = 8
+loot_chance = 0.6
+loot_item_level = 0
+loot_table_id = "undead_enemy"
+loot_count_min = 0
+loot_count_max = 2
+aggro_radius = 280.0
+deaggro_radius = 450.0
+attack_range = 55.0
+preferred_distance = 0.0
+skill_ids = []
+patrol_radius = 180.0
+patrol_wait_time = 2.0
+scale = Vector2(1, 1)
+health_bar_offset = Vector2(0, -50)

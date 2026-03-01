@@ -1,0 +1,28 @@
+{
+  "common_enemy": [
+    { "item_id": "health_potion_small", "weight": 40 },
+    { "item_id": "mana_potion_small",   "weight": 30 },
+    { "item_id": "short_sword",         "weight": 15 },
+    { "item_id": "leather_armor",       "weight": 15 }
+  ],
+  "undead_enemy": [
+    { "item_id": "health_potion_small", "weight": 30 },
+    { "item_id": "bone_fragment",       "weight": 40 },
+    { "item_id": "short_sword",         "weight": 20 },
+    { "item_id": "chain_mail",          "weight": 10 }
+  ],
+  "elite_enemy": [
+    { "item_id": "health_potion_large", "weight": 25 },
+    { "item_id": "mana_potion_large",   "weight": 20 },
+    { "item_id": "long_sword",          "weight": 20 },
+    { "item_id": "plate_armor",         "weight": 20 },
+    { "item_id": "ring_iron",           "weight": 15 }
+  ],
+  "boss": [
+    { "item_id": "health_potion_large", "weight": 20 },
+    { "item_id": "legendary_sword",     "weight": 10 },
+    { "item_id": "plate_armor",         "weight": 25 },
+    { "item_id": "ring_iron",           "weight": 25 },
+    { "item_id": "amulet_jade",         "weight": 20 }
+  ]
+}

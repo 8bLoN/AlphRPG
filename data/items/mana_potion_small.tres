@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://mp_small"]
+
+[ext_resource type="Script" path="res://resources/data/ItemData.gd" id="1_itemdata"]
+
+[resource]
+script = ExtResource("1_itemdata")
+id = "mana_potion_small"
+display_name = "Small Mana Potion"
+base_description = "Restores a small amount of mana."
+category = 1
+equip_slot = 0
+rarity = 0
+min_item_level = 1
+max_item_level = 0
+size = Vector2i(1, 1)
+max_stack = 10
+weight = 0.1
+heal_amount = 0.0
+mana_amount = 60.0
+use_cooldown = 5.0
