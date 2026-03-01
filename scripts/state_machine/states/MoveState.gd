@@ -20,24 +20,27 @@ func physics_update(_delta: float) -> void:
 	var speed: float = character.stats.get_stat("movement_speed") * BaseCharacter.WORLD_SCALE
 	var direction: Vector3 = Vector3.ZERO
 
+	# Try nav path first — but only if it gives a meaningfully different next position.
+	# When the navmesh has no path, get_next_path_position() returns the character's
+	# own position, making direction zero. In that case fall through to direct movement.
+	var nav_gave_direction := false
 	if nav != null and not nav.is_navigation_finished():
-		# Navigate via path.
 		var next_pos: Vector3 = nav.get_next_path_position()
 		var flat_to_next := Vector3(next_pos.x - character.global_position.x, 0.0,
 				next_pos.z - character.global_position.z)
-		direction = flat_to_next.normalized()
-	elif character._move_target != Vector3.ZERO:
-		# Direct movement fallback (no NavigationRegion baked, or nav unavailable).
+		if flat_to_next.length() > 0.05:
+			direction = flat_to_next.normalized()
+			nav_gave_direction = true
+
+	if not nav_gave_direction:
+		# Direct movement: used when nav has no path yet or nav mesh is unavailable.
 		var to_target: Vector3 = character._move_target - character.global_position
 		to_target.y = 0.0
-		if to_target.length() < ARRIVAL_THRESHOLD:
+		if to_target.length() < ARRIVAL_THRESHOLD or character._move_target == Vector3.ZERO:
 			character._move_target = Vector3.ZERO
 			transition_to("idle")
 			return
 		direction = to_target.normalized()
-	else:
-		transition_to("idle")
-		return
 
 	character.velocity = direction * speed
 
