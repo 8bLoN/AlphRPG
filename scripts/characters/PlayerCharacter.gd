@@ -13,6 +13,7 @@ extends BaseCharacter
 
 # ─── Progression ──────────────────────────────────────────────────────────────
 
+var gold: int = 500
 var experience: int = 0
 var experience_to_next_level: int = 100
 var unspent_stat_points: int = 0
@@ -44,6 +45,7 @@ func _on_ready() -> void:
 	faction = 0
 	_initialize_inventory()
 	_initialize_visual_layers()
+	_setup_default_skills()
 	EventBus.item_equipped.connect(_on_item_equipped)
 	EventBus.item_unequipped.connect(_on_item_unequipped)
 
@@ -79,6 +81,24 @@ func _initialize_inventory() -> void:
 func _initialize_visual_layers() -> void:
 	_visual_layers = {}
 
+
+func _setup_default_skills() -> void:
+	var skill_ids := ["mage_fireball", "warrior_bash", "rogue_backstab"]
+	var slot := 0
+	for sid in skill_ids:
+		var path := "res://data/skills/%s.tres" % sid
+		if not ResourceLoader.exists(path):
+			slot += 1
+			continue
+		var sd: SkillData = load(path) as SkillData
+		if sd == null:
+			slot += 1
+			continue
+		skill_tree.register_skill(sd)
+		skill_tree.learn_or_upgrade(sid)
+		skill_tree.assign_to_slot(slot, sid)
+		slot += 1
+
 # ─── Input ────────────────────────────────────────────────────────────────────
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -98,7 +118,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	for i in range(1, 5):
 		if event.is_action_pressed("skill_%d" % i):
-			use_skill(i - 1, _get_mouse_world_pos_3d())
+			use_skill(i, _get_mouse_world_pos_3d())
 
 	if event.is_action_pressed("toggle_inventory"):
 		_inventory_open = not _inventory_open

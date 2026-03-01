@@ -34,6 +34,8 @@ var _lifetime_timer: float = 0.0
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	_update_visuals()
+	_play_spawn_animation()
+	_start_rotation()
 
 
 func _process(delta: float) -> void:
@@ -67,6 +69,23 @@ func _update_visuals() -> void:
 	if item_label:
 		item_label.text = _item.get_display_name()
 		item_label.modulate = _item.get_rarity_color()
+
+
+func _play_spawn_animation() -> void:
+	var start_y := position.y + 1.8
+	position.y = start_y
+	var t := create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_BOUNCE)
+	t.tween_property(self, "position:y", 0.0, 0.55)
+
+
+func _start_rotation() -> void:
+	if not item_mesh:
+		return
+	var t := create_tween()
+	t.set_loops()
+	t.tween_property(item_mesh, "rotation:y", TAU, 2.2).set_trans(Tween.TRANS_LINEAR)
 
 
 func _on_body_entered(body: Node) -> void:

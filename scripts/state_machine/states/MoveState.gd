@@ -10,9 +10,34 @@ extends CharacterState
 ## Minimum distance to target before we consider arrival complete (world units).
 const ARRIVAL_THRESHOLD: float = 0.8
 
+const BOB_HEIGHT: float = 0.07
+const BOB_SPEED: float = 0.18
+
+var _bob_tween: Tween = null
+
 
 func enter() -> void:
 	play_animation("run")
+	_start_bob()
+
+
+func exit() -> void:
+	if _bob_tween and _bob_tween.is_valid():
+		_bob_tween.kill()
+	_bob_tween = null
+	var vroot: Node3D = character.get_node_or_null("VisualRoot") as Node3D
+	if vroot:
+		vroot.position.y = 0.0
+
+
+func _start_bob() -> void:
+	var vroot: Node3D = character.get_node_or_null("VisualRoot") as Node3D
+	if not vroot:
+		return
+	_bob_tween = character.create_tween()
+	_bob_tween.set_loops()
+	_bob_tween.tween_property(vroot, "position:y", BOB_HEIGHT, BOB_SPEED).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_bob_tween.tween_property(vroot, "position:y", 0.0, BOB_SPEED).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 
 func physics_update(_delta: float) -> void:

@@ -119,6 +119,13 @@ signal ui_panel_toggled(panel_id: String, is_visible: bool)
 
 # ─── World ────────────────────────────────────────────────────────────────────
 
+## A vendor shop was opened by proximity.
+## shop_items: Array of Dictionaries { "id", "name", "price" }
+signal vendor_opened(vendor_name: String, vendor_type: String, shop_items: Array)
+
+## The player left a vendor's proximity and the shop closed.
+signal vendor_closed()
+
 ## The player is about to transition to a new zone.
 signal zone_transition_started(from_zone: String, to_zone: String)
 

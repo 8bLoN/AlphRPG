@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://main_scene"]
+[gd_scene load_steps=60 format=3 uid="uid://main_scene"]
 
 [ext_resource type="Script" path="res://scripts/world/WorldManager.gd" id="1_wm"]
 [ext_resource type="Script" path="res://scripts/systems/LootSystem.gd" id="2_loot"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="6_hud"]
 [ext_resource type="Script" path="res://scripts/world/EnemySpawner.gd" id="7_spawner"]
 [ext_resource type="Resource" path="res://data/enemies/skeleton_basic.tres" id="8_skeleton"]
+[ext_resource type="Script" path="res://scripts/world/VendorNPC.gd" id="9_vendor"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
 sky_top_color = Color(0.05, 0.05, 0.12, 1)
@@ -67,6 +68,56 @@ height = 1.0
 [sub_resource type="StandardMaterial3D" id="Mat_rock"]
 albedo_color = Color(0.3, 0.28, 0.25, 1)
 roughness = 0.95
+
+[sub_resource type="BoxMesh" id="BoxMesh_bldg"]
+size = Vector3(7, 4, 7)
+
+[sub_resource type="StandardMaterial3D" id="Mat_bldg"]
+albedo_color = Color(0.55, 0.5, 0.42, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_roof"]
+size = Vector3(7.6, 1.2, 7.6)
+
+[sub_resource type="StandardMaterial3D" id="Mat_roof"]
+albedo_color = Color(0.28, 0.14, 0.08, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="BoxMesh_sign"]
+size = Vector3(2.5, 0.8, 0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pillar"]
+size = Vector3(0.9, 5, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="Mat_stone"]
+albedo_color = Color(0.4, 0.38, 0.35, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="BoxMesh_gate_beam"]
+size = Vector3(8, 0.6, 0.9)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_npc"]
+radius = 0.4
+height = 1.6
+
+[sub_resource type="StandardMaterial3D" id="Mat_npc_armor"]
+albedo_color = Color(0.2, 0.35, 0.6, 1)
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="Mat_npc_potion"]
+albedo_color = Color(0.25, 0.55, 0.25, 1)
+roughness = 0.6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vendor"]
+radius = 3.5
+
+[sub_resource type="StandardMaterial3D" id="Mat_sign_armor"]
+albedo_color = Color(0.7, 0.5, 0.2, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Mat_sign_potion"]
+albedo_color = Color(0.2, 0.6, 0.3, 1)
+roughness = 0.8
 
 [node name="WorldManager" type="Node"]
 script = ExtResource("1_wm")
@@ -243,6 +294,137 @@ material_override = SubResource("Mat_rock")
 position = Vector3(-32, 0.3, -12)
 scale = Vector3(0.9, 0.55, 1.3)
 
+[node name="Town" type="Node3D" parent="."]
+
+[node name="ArmorShop" type="Node3D" parent="Town"]
+position = Vector3(-9, 0, 10)
+
+[node name="Walls" type="MeshInstance3D" parent="Town/ArmorShop"]
+mesh = SubResource("BoxMesh_bldg")
+material_override = SubResource("Mat_bldg")
+position = Vector3(0, 2, 0)
+
+[node name="Roof" type="MeshInstance3D" parent="Town/ArmorShop"]
+mesh = SubResource("BoxMesh_roof")
+material_override = SubResource("Mat_roof")
+position = Vector3(0, 4.6, 0)
+
+[node name="Sign" type="MeshInstance3D" parent="Town/ArmorShop"]
+mesh = SubResource("BoxMesh_sign")
+material_override = SubResource("Mat_sign_armor")
+position = Vector3(0, 3.4, -3.6)
+
+[node name="SignLabel" type="Label3D" parent="Town/ArmorShop"]
+position = Vector3(0, 3.4, -3.65)
+pixel_size = 0.006
+text = "ARMOR"
+font_size = 48
+billboard = 0
+double_sided = true
+
+[node name="PotionShop" type="Node3D" parent="Town"]
+position = Vector3(9, 0, 10)
+
+[node name="Walls" type="MeshInstance3D" parent="Town/PotionShop"]
+mesh = SubResource("BoxMesh_bldg")
+material_override = SubResource("Mat_bldg")
+position = Vector3(0, 2, 0)
+
+[node name="Roof" type="MeshInstance3D" parent="Town/PotionShop"]
+mesh = SubResource("BoxMesh_roof")
+material_override = SubResource("Mat_roof")
+position = Vector3(0, 4.6, 0)
+
+[node name="Sign" type="MeshInstance3D" parent="Town/PotionShop"]
+mesh = SubResource("BoxMesh_sign")
+material_override = SubResource("Mat_sign_potion")
+position = Vector3(0, 3.4, -3.6)
+
+[node name="SignLabel" type="Label3D" parent="Town/PotionShop"]
+position = Vector3(0, 3.4, -3.65)
+pixel_size = 0.006
+text = "POTIONS"
+font_size = 48
+billboard = 0
+double_sided = true
+
+[node name="Gate" type="Node3D" parent="Town"]
+position = Vector3(0, 0, -9)
+
+[node name="PillarLeft" type="MeshInstance3D" parent="Town/Gate"]
+mesh = SubResource("BoxMesh_pillar")
+material_override = SubResource("Mat_stone")
+position = Vector3(-4.5, 2.5, 0)
+
+[node name="PillarRight" type="MeshInstance3D" parent="Town/Gate"]
+mesh = SubResource("BoxMesh_pillar")
+material_override = SubResource("Mat_stone")
+position = Vector3(4.5, 2.5, 0)
+
+[node name="Beam" type="MeshInstance3D" parent="Town/Gate"]
+mesh = SubResource("BoxMesh_gate_beam")
+material_override = SubResource("Mat_stone")
+position = Vector3(0, 5, 0)
+
+[node name="GateLabel" type="Label3D" parent="Town/Gate"]
+position = Vector3(0, 5.6, 0)
+pixel_size = 0.008
+text = "Exit Town"
+font_size = 40
+modulate = Color(1, 0.9, 0.5, 1)
+
+[node name="ArmorVendor" type="Area3D" parent="Town"]
+script = ExtResource("9_vendor")
+position = Vector3(-9, 0, 4)
+vendor_name = "Aldric the Smith"
+vendor_type = "armor"
+item_ids = PackedStringArray("leather_armor", "chain_mail", "short_sword", "long_sword")
+item_prices = {"leather_armor": 80, "chain_mail": 180, "short_sword": 60, "long_sword": 140}
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Town/ArmorVendor"]
+shape = SubResource("SphereShape3D_vendor")
+
+[node name="NpcMesh" type="MeshInstance3D" parent="Town/ArmorVendor"]
+mesh = SubResource("CapsuleMesh_npc")
+material_override = SubResource("Mat_npc_armor")
+position = Vector3(0, 0.8, 0)
+
+[node name="NameLabel" type="Label3D" parent="Town/ArmorVendor"]
+position = Vector3(0, 2.2, 0)
+pixel_size = 0.006
+text = "Aldric the Smith"
+font_size = 36
+billboard = 1
+modulate = Color(0.9, 0.85, 1, 1)
+
+[node name="PotionVendor" type="Area3D" parent="Town"]
+script = ExtResource("9_vendor")
+position = Vector3(9, 0, 4)
+vendor_name = "Mira the Alchemist"
+vendor_type = "potion"
+item_ids = PackedStringArray("health_potion_small", "health_potion_large", "mana_potion_small", "mana_potion_large")
+item_prices = {"health_potion_small": 20, "health_potion_large": 50, "mana_potion_small": 20, "mana_potion_large": 50}
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Town/PotionVendor"]
+shape = SubResource("SphereShape3D_vendor")
+
+[node name="NpcMesh" type="MeshInstance3D" parent="Town/PotionVendor"]
+mesh = SubResource("CapsuleMesh_npc")
+material_override = SubResource("Mat_npc_potion")
+position = Vector3(0, 0.8, 0)
+
+[node name="NameLabel" type="Label3D" parent="Town/PotionVendor"]
+position = Vector3(0, 2.2, 0)
+pixel_size = 0.006
+text = "Mira the Alchemist"
+font_size = 36
+billboard = 1
+modulate = Color(0.7, 1, 0.7, 1)
+
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_1")
 enabled = true
@@ -261,21 +443,21 @@ position = Vector3(0, 0, 0)
 
 [node name="SkeletonSpawner1" type="Node3D" parent="EnemySpawners"]
 script = ExtResource("7_spawner")
-position = Vector3(22, 0, 8)
+position = Vector3(22, 0, -40)
 enemy_scene = ExtResource("4_enemy")
 enemy_data = ExtResource("8_skeleton")
 max_count = 4
-spawn_radius = 10.0
-respawn_time = 12.0
+spawn_radius = 8.0
+respawn_time = 14.0
 
 [node name="SkeletonSpawner2" type="Node3D" parent="EnemySpawners"]
 script = ExtResource("7_spawner")
-position = Vector3(-20, 0, -15)
+position = Vector3(-18, 0, -55)
 enemy_scene = ExtResource("4_enemy")
 enemy_data = ExtResource("8_skeleton")
 max_count = 3
 spawn_radius = 8.0
-respawn_time = 12.0
+respawn_time = 14.0
 
 [node name="LootSystem" type="Node" parent="."]
 script = ExtResource("2_loot")

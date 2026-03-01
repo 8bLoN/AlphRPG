@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://hud"]
+[gd_scene load_steps=8 format=3 uid="uid://hud"]
 
 [ext_resource type="Script" path="res://scripts/ui/HealthManaBar.gd" id="1_hmbar"]
 [ext_resource type="Script" path="res://scripts/ui/SkillBar.gd" id="2_skillbar"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/ui/CharacterWindow.gd" id="4_charwin"]
 [ext_resource type="Script" path="res://scripts/ui/FloatingTextManager.gd" id="5_floattext"]
 [ext_resource type="Script" path="res://scripts/ui/TooltipManager.gd" id="6_tooltip"]
+[ext_resource type="Script" path="res://scripts/ui/VendorUI.gd" id="7_vendor"]
 
 [node name="HUD" type="CanvasLayer"]
 
@@ -461,6 +462,63 @@ offset_bottom = 200.0
 autowrap_mode = 3
 text = ""
 visible = false
+
+[node name="VendorUI" type="Control" parent="."]
+script = ExtResource("7_vendor")
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -220.0
+offset_right = 160.0
+offset_bottom = 220.0
+visible = false
+
+[node name="Background" type="ColorRect" parent="VendorUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.07, 0.06, 0.1, 0.96)
+z_index = -1
+
+[node name="TitleBar" type="ColorRect" parent="VendorUI"]
+anchor_right = 1.0
+offset_bottom = 30.0
+color = Color(0.12, 0.06, 0.18, 1.0)
+
+[node name="Title" type="Label" parent="VendorUI"]
+anchor_right = 1.0
+offset_top = 4.0
+offset_right = 0.0
+offset_bottom = 28.0
+text = "Shop"
+horizontal_alignment = 1
+
+[node name="GoldLabel" type="Label" parent="VendorUI"]
+anchor_right = 1.0
+offset_top = 34.0
+offset_right = 0.0
+offset_bottom = 54.0
+text = "Gold: 500"
+horizontal_alignment = 1
+
+[node name="Items" type="VBoxContainer" parent="VendorUI"]
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 58.0
+offset_right = -8.0
+offset_bottom = 390.0
+
+[node name="CloseBtn" type="Button" parent="VendorUI"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -44.0
+offset_top = -34.0
+offset_right = 44.0
+offset_bottom = -8.0
+text = "Close"
 
 [node name="FloatingTextManager" type="Node2D" parent="."]
 script = ExtResource("5_floattext")
